@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+        crossorigin="anonymous">
+    <title>ajax</title>
+</head>
+
+<body style="background-color:#FEFBFA;" >
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6" >
+                <div id="cabecera">
+                    <h1 class="text-black">Perfil</h1>
+                </div>
+                <div class="card text-white bg-info mb-3 border-info col-md-6" style="max-width: 70%;">
+                    <img class="card-img-top" src="" alt="Ver Datos" id="avatar">
+                    <div class="card-body">
+
+                        <h5 class="card-title" id="nombre"></h5>
+                        <h6 class="card-subtitle mb-2 text-muted" id="location"></h6>
+                        <p class="card-text" id="bio"></p>
+                        <a href="compañia" class="btn btn-primary" id="compania"></a>
+                    </div>
+                </div>
+            </div>
+           
+            <div class="col-md-6" >
+                    
+               <h1>Repositorios</h1>
+                <div class="text-white">
+                    <div id="contenedor"  class="col-12 col-md-8"></div>>
+                        <p class="text-black">Repositorios</p>
+                        
+                    </div>
+                    <table class="table table-hover table-dark">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nombre Repositorio</th>
+                                <th>URL</th>
+                            </tr>
+                        </thead>
+                        <tbody id="cuerpoTabla">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+
+        var datosperfil = {};
+        var datos_repo = [];
+
+        function getRequestGit() {
+            var peticion = new XMLHttpRequest();
+            peticion.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    datosperfil = JSON.parse(this.responseText)
+                    document.getElementById('nombre').innerHTML = datosperfil.name
+                    document.getElementById('bio').innerHTML = datosperfil.bio
+                    document.getElementById('compania').innerHTML = datosperfil.company
+                    document.getElementById('location').innerHTML = datosperfil.location
+                    com = document.getElementById('compania');
+                    com.setAttribute("href", "https://" + datosperfil.company);
+                    var imagen = document.getElementById('avatar');
+                    imagen.setAttribute('src', datosperfil.avatar_url);
+
+                    console.log(datosperfil);
+
+                    renderRepositorios(datosperfil.repos_url);
+                    //document.getElementById("renderajax").innerHTML = this.responseText;
+
+                }
+            }
+            peticion.open('GET', 'https://api.github.com/users/AdrianaAnacona', true);
+            peticion.send();
+        }
+
+        document.addEventListener("DOMContentLoaded", function (event) {
+            console.log("pagina Cargada");
+            getRequestGit();
+        });
+
+        function renderRepositorios(url) {
+            var data = [];
+            var req = new XMLHttpRequest();
+            req.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    data = JSON.parse(this.responseText);
+                    //document.getElementById('repositorios').innerHTML = this.responseText;
+
+                    datos_repo = data;
+
+                    var cont = document.getElementById('contenedor');
+                    var auxE = "";
+
+                    datos_repo.forEach(function (item, index) {
+                        //auxE += "<p>" + item.nombre + "</p>"
+                        console.log("Aqui en item datos" + item.id);
+                        console.log(item);
+                    });
+
+                    cont.innerHTML = auxE;
+
+                    var cTable = document.getElementById('cuerpoTabla')
+                    var auxT = "";
+                    datos_repo.forEach(function (items, index) {
+                        auxT += "<tr><td>" + items.id + "</td><td>" + items.name + "</td> <td>" + items.git_url + "</td><tr>";
+                    })
+                    cTable.innerHTML = auxT;
+                }
+            }
+            req.open('GET', url, true);
+            req.send();
+
+        }
+
+    </script>
+
+</html>

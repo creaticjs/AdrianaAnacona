@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style> </style>
+</head>
+
+
+<body>
+        <h1>JUGANDO AHORCADO</h1>
+
+        
+        <div>
+                Digite letra escondida: 
+                <input  type="text" id="palabra" value="">
+                <button onclick="evaluar()">Evaluar</button> 
+                <p id="copia"> -------</p>
+                <p id="copia2"> Oye ¡</p>
+                 <img src="img/Palo.png" id="img">        
+        </div>
+
+
+        <script>
+            var copia=[];
+            var bucle=false;
+            var intentos=0;
+            var solucion=[];
+            var acertado=false;
+            var letrasAcertadas=0;
+            var salirbucleganar=false;
+            inicio();
+
+            function inicio(){
+                for (j=0; j<palabra.length; j++ ){
+                    copia[j]="-";                    
+                }
+                console.log("copia :"+copia);
+            }
+            var palabras=["raton","pato","gato","loro","aguila"];
+            var aleatorio = palabras[Math.floor(Math.random() * palabras.length)];
+
+            function evaluar(){
+                
+               
+                palabra = aleatorio;    
+                //palabra = "casual";
+                var tam = palabra.length;
+                var letra = document.getElementById("palabra").value;
+                console.log("palabra: "+palabra);
+                console.log("letra: "+letra);
+                
+                for(i = 0; i < tam; i++){
+                    if (letra == palabra.charAt(i))
+                    {
+                        console.log("letra encontrada");
+                        copia[i]=letra;
+                        acertado=true;
+                        letrasAcertadas++;
+                        
+                    }
+                    
+                }
+                document.getElementById("copia").innerHTML=copia;
+                console.log("copia"+copia);
+
+                if (acertado==false) {
+                    document.getElementById("copia2").innerHTML= "has fallado";
+                    //alert("Has fallado");
+                    intentos++;
+                    // document.write('<img src="img/Brazo1.png"/>');
+                }
+                else {
+                    document.getElementById("copia2").innerHTML= "has acertado";
+                }
+
+                if (letrasAcertadas==tam) {
+                    document.getElementById("copia2").innerHTML= "has ganado";
+               // alert("Has ganado campeon");
+                salirbucleganar=true;
+                }
+
+                    acertado=false;
+}
+                
+
+                //copia = copia+copia;
+                //console.log("copia nueva:"+copia)
+               /* function vida(){
+                    var vida = 3;
+                    if (vida == 3){
+                        document.getElementById('img').src="img/Cabeza.png";
+                    }
+                    else if (vida==2){
+                        document.getElementById('img').src="img/Brazo2.png";
+                    }
+                    vida--;
+                    console.log(vida);
+
+                }*/
+
+                
+
+
+            
+                
+        </script>
+
+
+
+   
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/lib/w3.css">
+    <link rel="stylesheet" href="estilos.css">
+</head>
+
+<body>
+
+    <h2>Noticias de Futbol</h2>
+    <p>Encuentra la mayor informacion deportiva de Colombia</p>
+
+
+    <div class="tab">
+        <button class="tablinks" onclick="openCity(event, 'Equipos')">Equipos</button>
+        <button class="tablinks" onclick="openCity(event, 'tabla')">Tabla Posiciones</button>
+    </div>
+
+    <div id="Equipos" class="tabcontent">
+        <h3>Equipos de Futbol Colombiano</h3>
+        <p>Selecciona el equipo</p>
+        <select name="" id="equipos">
+            <option value="nacional"> Nacional</option>
+            <option value="america"> America</option>
+            <option value="millo"> Millonarios</option>
+            <option value="tolima"> Tolima</option>
+            <option value="pasto"> Pasto</option>
+        </select>
+
+        <p>Equipo Seleccionado :</p>
+
+
+        <div class="w3-card-8 w3-dark-grey w3-margin" style="width:70%">
+            <div class="w3-container w3-center">
+
+                <h3 id="nombre">Nombre</h3>
+                <img id="imgEquipo" style="width:30%">
+                <h5>Director Tecnico</h5>
+                <h5 id="dt"></h5>
+                <h5>Reseña</h5>
+                <h5 id="res"></h5>
+                <h5>Estadio</h5>
+                <img id="imgestadio" style="width:60%">
+                <h5>Estrellas</h5>
+                <h3 id="estrellas"></h3>
+
+            </div>
+
+            Jugadores:
+            <h3 id="jugadores"></h3>
+
+        </div>
+
+
+    </div>
+    <div id="tabla" class="tabcontent">
+        <h3>Paris</h3>
+        <p>Paris is the capital of France.</p>
+
+        <p>FILTRO</p>
+        <select name="" id="equipos">
+            <option value="B"> categoria B</option>
+            <option value="A"> categoria A</option>
+        </select>
+        <input type="button" value="ordenar" id="boton" />
+        <br>
+        <br>
+        <div id="contenedor">
+            <p>Contenido</p>
+        </div>
+        <table border="1px">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Puntaje</th>
+                </tr>
+            </thead>
+            <tbody id="cuerpoTabla">
+            </tbody>
+        </table>
+    </div>
+
+</body>
+<script src="datosfutbol.js"></script>
+
+</html>
